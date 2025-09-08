@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аллея славы!</title>
+    <link rel="icon" href="photo/icon.png" type="image/x-icon">
+    <style>
+        /* Основной стиль страницы */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f4f4f4, #eaeaea);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        /* Верхняя полоса */
+        .login {
+            width: 100%;
+            background: #333;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .login .logo img {
+            height: 60px; /* Высота логотипа */
+        }
+        .login .links {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Расстояние между ссылками */
+            margin-right: 31px;
+            width: 200px;
+        }
+        .login .center-text {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;;
+        }
+        .login a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .login a:hover {
+            color: #ff0000;
+        }
+
+        /* Контейнер для контента */
+        .main-container {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            margin-top: 60px; /* Отступ для верхней полосы */
+            margin-bottom: 60px; /* Отступ для нижней полосы */
+        }
+
+        /* Боковые фотографии */
+        .side-images {
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 37px;
+        }
+        .side-images img {
+            width: 400px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .side-images img:hover {
+            transform: scale(0.9);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Центральный контент */
+        .content {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 37px;
+        }
+
+        /* Блок новостей */
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            width: 100%;
+            gap: 20px;
+        }
+        .news {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+        .news h2 {
+            font-size: 24px;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+        .news p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #313836;
+            text-align: justify;
+        }
+
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Футер */
+        footer {
+            width: 100%;
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px; /* Отступ от верхнего блока */
+            position: relative; /* Убираем абсолютное позиционирование */
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer .small-text {
+            font-size: 12px;
+            color: #aaa;
+        }
+        /* Стили для аудиопроигрывателя */
+.audio-player {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.audio-player audio {
+    width: 300px; /* Ширина проигрывателя */
+    height: 40px; /* Высота проигрывателя */
+    border-radius: 10px; /* Скругленные углы */
+    background-color: #333; /* Фон проигрывателя */
+    color: #fff; /* Цвет текста и кнопок */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень */
+    outline: none; /* Убираем обводку */
+    transition: transform 0.3s, box-shadow 0.3s; /* Анимация при наведении */
+}
+
+.audio-player audio:hover {
+    transform: scale(1.05); /* Увеличение при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Усиленная тень */
+}
+
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный фон */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+    text-align: center;
+}
+
+.modal-content video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+.close:hover {
+    color: red;
+}
+    </style>
+</head>
+<body>
+    <!-- Верхняя полоса -->
+    <div class="login">
+        <div class="logo">
+        <a href="#" id="logo-link">
+            <img src="photo/rob.png" alt="Логотип">
+        </a>
+    </div>
+    <div id="video-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <video controls>
+                <source src="video/brbr.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </div>
+    </div>
+        <div class="links">
+            <a href="/auth.html">Тесты</a>
+        </div>
+        <h2  class="center-text">Аллея славы Курска!</h2>
+    </div>
+
+    <!-- Основной контейнер -->
+    <div class="main-container">
+        <!-- Левая колонка с фотографиями -->
+        <div class="side-images">
+            <img src="photo/golem.png" alt="Фото 1">
+            <img src="photo/andry.png" alt="Великий и невозмутимый АНДРЕЙ ГОЛЕМ!">
+            <img src="photo/roman.png" alt="Фото 3">
+            <img src="photo/daniil.png" alt="Фото 4">
+            <img src="photo/dog.png" alt="Фото 5">
+        </div>
+
+        <!-- Центральный контент -->
+        <div class="content">
+            <!-- Блок новостей -->
+            <div class="wrapper">
+                <div class="news">
+                    <h2>НОВОСТИ ПРО АНДРЕЯ</h2>
+                    <p>Андрей Голем, двадцать лет отроду, только что зарядил в себя пачку пельменей, щедро залитых ядрёной аджикой. Теперь он сидит в обнимку с белым другом, а из него выходят не какашки, а снаряды калибра «oh-shit». Они с грохотом падают в воду, а сам он, бледный, как простыня, не может даже в телефоне в танки играть — трясущиеся руки мажут мимо цели. В голове одна мысль: «Надо было жрать эти ебучие котлеты, которые мама оставила». Но нет, решил быть оригинальным. Теперь его единственная шабашка на вечер — отстоять свой пост у унитаза и выжить. Цена контракта — его достоинство и спокойствие жопы. Шабашка, блять, невыполнимая.</p>
+                </div>
+                <div class="news">
+                    <h2>НОВОСТИ ПРО ВЛАДОСА</h2>
+                    <p>Владос — это не имя, это титул. Титул Повелителя Унитаза и Непревзойденного Гамзателя в «Танки». Его царство простирается от заваленного пустыми банками пива системного блока до белого фаянсового трона, на котором он проводит значительную часть своей сознательной жизни. Он — проф в «Дотке», но не простой, а специфический. Его специализация — стиль «steal a brainrot», особая тактика игры, от которой скилл противников не растет, а необратимо деградирует. Он мастер хейта в чате и виртуоз непредсказуемых действий, сводящих с ума и своих, и чужих. Его состояние души — это вечный «funpay магнат». Он вечно что-то продает, покупает, меняет и обводит вокруг пальца кого-то на трейдерских площадках, считая это высшей формой предпринимательства. Он не просто пьет пиво. Он — его пивной житель. Пенный напиток — это кровь, текущая по венам его цифровой империи, топливо для ночных марафонов в доте и гамза в танках. Его кредо просто: есть вай-фай, есть пиво в холодильнике и запасной рулон туалетной бумаги неподалеку. Остальное — приложится.</p>
+                </div>
+                <div class="news">
+                    <h2>НОВОСТИ ПРО ТЕМУ</h2>
+                    <p>
+
+Тема — это тот самый лучик света в суровом цифровом хаосе. В то время как все вокруг гамзят, хейтят и спорят о мете, он занимается самым важным — несёт добро и позитив.
+
+Его главная фишка — делать селфи через встроенный фоторедактор Steam. Но это не просто скриншоты. Это целое искусство: он ловит самые эпичные моменты матчей — взрыв за спиной, победоносный момент на троне, комичную смерть тиммейта — и превращает их в шедевры. Обязательно с подписью, которая заставит улыбнуться даже после самого жёсткого поражения. Все его знают в лицо — ну, в лицо его пиксельного аватара с широкой улыбкой и в колпаке неудачника из какой-нибудь инди-игры.
+
+Он — живой мем, локальная знаменитость, human-фактор в мире цифрового безразличия. Он не просто играет — он создаёт настроение. После игры с ним хочется зафрендить его не ради скилов, а просто чтобы видеть в ленте его дурацкие и тёплые скриншоты.
+
+А ещё Тема — главный поставщик мемов и гифок в общем чате. Он тот, кто после жаркого спора о балансе героев закинет в беседу смешную картинку, и всё напряжение мгновенно испаряется. Он напоминает всем, что игры — это в первую очередь про кайф и хорошие эмоции. И за это его любят даже самые угрюмые и заядлые гамзеры.</p>
+                </div>
+                <div class="news">
+                    <h2>НОВОСТИ ПРО УКРОПА</h2>
+                    <p>Воробжа — небольшой, но гордый посёлок, у которого есть свой неформальный лидер. И зовут его Укроп. Он не просто житель, он — Приездиент. Человек-легенда, чей авторитет зиждется на трёх китах: любви к Макдональдсу, недюжинной силе и банным посиделкам. Этот тестостероновый Геркулес в косухе может одним взглядом остановить разбушевавшегося быка, а его любимое хобби — руинить на «Сларке», оставляя за собой след из виртуальных обломков и поверженных врагов. Говорят, именно он научил местных барменов наливать «как для своего». Но его истинная обитель — не дом и не забегаловка, а старая курская баня. Он её единственный и постоянный житель, хранитель её пара и духа. Для всех он — Укроп. Приездиент Воробжей, царь «Сларка» и патриарх парилки.</p>
+                </div>
+                <div class="news">
+                    <h2>НОВОСТИ ПРО МИШУ</h2>
+                    <p>Миша — это не просто рядовой обитатель цифровых фронтов. Он — гуру «Дотки» и «Танков», чьи рейды в виртуальные миры больше похожи на священные крестовые походы. Он не играет — он ведёт тотальную войну, врываясь в топ-95% не столько расчётом, сколько неукротимой яростью, выжигающей всё на своём пути. Его фирменный прелюдия к победным репортажам — ритуальное раскуривание отборной шишечки, чтобы поймать тот самый «вкус мощности» и отсечь всё лишнее грохотом в наушниках.
+
+Но его натура сложнее простого тролля. Миша — тонкий ценитель настоящей сваги. Он коллекционирует не только скины, но и атмосферу, статус, тот неуловимый лоск digital-бытия. Он тот, кто часами может раскапывать Фенрира — искать по форумам, стримам и патчам ту самую сломанную механику, ту скрытую опцию, что превратит его из просто геймера в повелителя меты.
+
+А ещё он знает цену настоящему отдыху. Когда клавиши на клавиатуре уже плавятся, а глаза устали от экрана, Миша мастерски оттягивает шкурку где-нибудь в киевской кофейне, потому что даже бунтарю нужна своя резиденция для перезарядки.
+
+Система вручает ему «Эгиду» почти на халяву — она в недоумении, как подступиться к этому хаотичному алхимику, который одинаково виртуозно и ломает вражескую оборону, и разгадывает тайны игровых вселенных. Он — редкий гибрид: и гроза катков, и их тайный архивариус. И он не собирается сбавлять ход.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Правая колонка с фотографиями -->
+        <div class="side-images">
+            <img src="photo/ykrop.png" alt="Фото 4">
+            <img src="photo/vados.png" alt="Фото 5">
+            <img src="photo/sf.png" alt="Фото 6">
+            <img src="photo/misha.png" alt="Фото 7">
+            <img src="photo/zak.png" alt="Фото 8">
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer>
+    <p>Спасибо за просмотр!</p>
+    <p class="small-text">Хайповый проигрыватель музыки внизу, обязательно послушайте!</p>
+    <div class="audio-player">
+        <audio controls>
+            <source src="music/tung.mp3" type="audio/mpeg">
+            Ваш браузер не поддерживает аудиоэлемент.
+        </audio>
+    </div>
+</footer>
+<script>
+    // Получаем элементы
+    const logoLink = document.getElementById('logo-link');
+    const modal = document.getElementById('video-modal');
+    const closeBtn = document.querySelector('.modal .close');
+
+    // Открытие модального окна при клике на логотип
+    logoLink.addEventListener('click', (e) => {
+        e.preventDefault(); // Отменяем переход по ссылке
+        modal.style.display = 'flex'; // Показываем модальное окно
+    });
+
+    // Закрытие модального окна при клике на крестик
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // Закрытие модального окна при клике вне контента
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>

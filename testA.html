@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Опросник</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f4f4f4, #eaeaea);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .question-container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-size: 20px;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .answer {
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .answer:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .answer.correct {
+            background: #74ebd5 !important;
+            color: #fff;
+        }
+
+        .answer.incorrect {
+            background: #ff6b6b !important;
+            color: #fff;
+        }
+
+        .answer input {
+            display: none;
+        }
+
+        .answer label {
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Че в хуй че нахуй?</h1>
+
+    <form id="quiz-form">
+        <!-- Вопрос 1 -->
+        <div class="question-container">
+            <div class="question">Мы выяснили что Андрей медведь, а кто Алена?</div>
+            <div class="answers">
+                <div class="answer" data-correct="false" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q1a1" name="question1" value="Ответ 1">
+                    <label for="q1a1">пить пиво</label>
+                </div>
+                <div class="answer" data-correct="true" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q1a2" name="question1" value="Ответ 2">
+                    <label for="q1a2">Малая медведица</label>
+                </div>
+                <div class="answer" data-correct="false" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q1a3" name="question1" value="Ответ 3">
+                    <label for="q1a3">Алена</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вопрос 2 -->
+        <div class="question-container">
+            <div class="question">Как Андрей называет котлеты?</div>
+            <div class="answers">
+                <div class="answer" data-correct="true" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a1" name="question2" value="Ответ 1">
+                    <label for="q2a1">ебучие</label>
+                </div>
+                <div class="answer" data-correct="false" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a2" name="question2" value="Ответ 2">
+                    <label for="q2a2">туту sahur</label>
+                </div>
+                <div class="answer" data-correct="false" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a3" name="question2" value="Ответ 3">
+                    <label for="q2a3">вкусные</label>
+                </div>
+                <div class="answer" data-correct="false" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a3" name="question2" value="Ответ 3">
+                    <label for="q2a3">пиздатые</label>
+                </div>
+            </div>
+        </div>
+        <!-- Вопрос 3 -->
+        <div class="question-container">
+            <div class="question">какие наушники у Андрея?</div>
+            <div class="answers">
+                <div class="answer" data-correct="true" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a1" name="question2" value="Ответ 1">
+                    <label for="q2a1">логитеч</label>
+                </div>
+                <div class="answer" data-correct="false" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a2" name="question2" value="Ответ 2">
+                    <label for="q2a2">хуйперX</label>
+                </div>
+                <div class="answer" data-correct="false" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a3" name="question2" value="Ответ 3">
+                    <label for="q2a3">мчоус</label>
+                </div>
+                <div class="answer" data-correct="true" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a3" name="question2" value="Ответ 3">
+                    <label for="q2a3">ебучие наушники сука</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <div class="question">Шабашка today?</div>
+            <div class="answers">
+                <div class="answer" data-correct="false" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a1" name="question2" value="Ответ 1">
+                    <label for="q2a1">yes</label>
+                </div>
+                <div class="answer" data-correct="false" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a2" name="question2" value="Ответ 2">
+                    <label for="q2a2">no</label>
+                </div>
+                <div class="answer" data-correct="false" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a3" name="question2" value="Ответ 3">
+                    <label for="q2a3">сосал</label>
+                </div>
+                <div class="answer" data-correct="true" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a3" name="question2" value="Ответ 3">
+                    <label for="q2a3">пить пиво</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <div class="question">Сосал?</div>
+            <div class="answers">
+                <div class="answer" data-correct="true" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a1" name="question2" value="Ответ 1">
+                    <label for="q2a1">да, сосал</label>
+                </div>
+                <div class="answer" data-correct="false" onclick="highlightAnswer(this)">
+                    <input type="radio" id="q2a2" name="question2" value="Ответ 2">
+                    <label for="q2a2">нет, не сосал</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Кнопка завершения -->
+        <button type="button" class="submit-btn" onclick="finishTest()">Закончить тест</button>
+    </form>
+
+    <script>
+    function highlightAnswer(answer) {
+        const answers = answer.parentElement.querySelectorAll('.answer');
+        answers.forEach(a => {
+            a.classList.remove('correct', 'incorrect');
+        });
+
+        if (answer.dataset.correct === "true") {
+            answer.classList.add('correct');
+        } else {
+            answer.classList.add('incorrect');
+        }
+    }
+
+    function finishTest() {
+        // Перенаправление на страницу resultV.php
+        window.location.href = "resultA.html";
+    }
+</script>
+</body>
+</html>
+
